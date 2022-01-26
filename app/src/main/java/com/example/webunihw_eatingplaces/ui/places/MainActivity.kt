@@ -1,7 +1,8 @@
-package com.example.webunihw_eatingplaces
+package com.example.webunihw_eatingplaces.ui.places
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.webunihw_eatingplaces.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
