@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitClient {
 
-    const val MainServer = "https://api.openweathermap.org/"
+    const val MainServer = "https://eteto.nebet.hu"
 
     //by lazy = csak akkor fog példányosodni, ha egyszer valaki már használta
     val retrofitClient: Retrofit.Builder by lazy {

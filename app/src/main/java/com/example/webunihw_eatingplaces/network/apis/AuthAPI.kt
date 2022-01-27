@@ -1,15 +1,17 @@
 package com.example.webunihw_eatingplaces.network.apis
 
-import com.example.webunihw_eatingplaces.model.auth.UserResult
+import com.example.webunihw_eatingplaces.model.auth.LoginResult
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 
 interface AuthAPI {
-    @GET("/data/2.5/weather")
+    @FormUrlEncoded
+    @POST("/auth/login/")
     suspend fun login(
-        @Query("email") email: String,
-        @Query("password") password: String
-    ): Response<UserResult>
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<LoginResult>
 }

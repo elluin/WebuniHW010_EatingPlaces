@@ -13,9 +13,6 @@ interface UserDAO {
     @Insert
     suspend fun insertUser(user: User) : Long
 
-    @Insert
-    suspend fun insertCities(vararg user: User): List<Long>
-
     @Delete
     suspend fun deleteUser(user: User)
 
