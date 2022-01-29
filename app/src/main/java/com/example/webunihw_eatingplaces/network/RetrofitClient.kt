@@ -29,7 +29,19 @@ object RetrofitClient {
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
-    val apiInterface: AuthAPI by lazy {
+//    val loginApiInterface: AuthAPI by lazy {
+//        retrofitClient
+//            .build()
+//            .create(AuthAPI::class.java)
+//    }
+//
+//    val registrationApiInterface: AuthAPI by lazy {
+//        retrofitClient
+//            .build()
+//            .create(AuthAPI::class.java)
+//    }
+
+    val authApiInterface: AuthAPI by lazy {
         retrofitClient
             .build()
             .create(AuthAPI::class.java)

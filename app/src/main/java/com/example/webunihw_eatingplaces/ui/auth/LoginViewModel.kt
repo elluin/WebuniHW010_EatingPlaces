@@ -19,7 +19,7 @@ class LoginViewModel : ViewModel() {
 
     fun login(email: String, password: String) {
 
-        result.value = InProgress
+        result.value = LoginInProgress
 
         viewModelScope.launch(Dispatchers.IO) {
             val response = loginRepository.getLoginDetails(email, password)

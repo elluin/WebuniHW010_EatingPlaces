@@ -23,6 +23,10 @@
 
         </activity>
 
+        <activity android:name=".ui.places.MainActivity">
+
+        </activity>
+
     </application>
 
 

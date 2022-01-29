@@ -7,11 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.webunihw_eatingplaces.databinding.ActivityLoginBinding
 import com.example.webunihw_eatingplaces.model.auth.LoginResult
-import java.text.SimpleDateFormat
-import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,10 +21,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loginViewModel.getLoginLiveData()
-            .observe(this, { weatherDetailsResult -> render(weatherDetailsResult) })
-       // loginViewModel.login(binding.edittextUsername.text.toString(),binding.edittextPassword.text.toString())
+            .observe(this, { loginDetailsResult -> render(loginDetailsResult) })
+
         binding.buttonLogin.setOnClickListener() {
-            loginViewModel.login("hardvera@gmail.com", "mmmmmmmm")
+            loginViewModel.login(binding.edittextUsername.text.toString(), binding.edittextPassword.text.toString())
+            Log.e("login adatok", binding.edittextUsername.text.toString())
+        }
+
+        binding.buttonReg.setOnClickListener() {
+            val intent = Intent(this, RegistrationActivity::class.java)
+            startActivity(intent)
         }
 
     }//ONCREATE
@@ -35,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
     private fun render(result: LoginViewState) {
         Log.e("tartalom", result.toString())
         when (result) {
-            is InProgress -> {
+            is LoginInProgress -> {
                 binding.progressbarLogin.visibility = View.VISIBLE
             }
             is LoginResponseSuccess -> {
