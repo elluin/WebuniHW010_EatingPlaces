@@ -2,6 +2,7 @@ package com.example.webunihw_eatingplaces.network
 
 import com.example.webunihw_eatingplaces.BuildConfig
 import com.example.webunihw_eatingplaces.network.apis.AuthAPI
+import com.example.webunihw_eatingplaces.network.apis.PlacesAPI
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,8 +14,9 @@ object RetrofitClient {
 
     //by lazy = csak akkor fog példányosodni, ha egyszer valaki már használta
     val retrofitClient: Retrofit.Builder by lazy {
-        val levelType: HttpLoggingInterceptor.Level = if (BuildConfig.BUILD_TYPE.contentEquals("debug"))
-            HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        val levelType: HttpLoggingInterceptor.Level =
+            if (BuildConfig.BUILD_TYPE.contentEquals("debug"))
+                HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
         val logging = HttpLoggingInterceptor()
         logging.setLevel(levelType)
@@ -29,22 +31,18 @@ object RetrofitClient {
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
-//    val loginApiInterface: AuthAPI by lazy {
-//        retrofitClient
-//            .build()
-//            .create(AuthAPI::class.java)
-//    }
-//
-//    val registrationApiInterface: AuthAPI by lazy {
-//        retrofitClient
-//            .build()
-//            .create(AuthAPI::class.java)
-//    }
-
+    //regisztráció és login apik
     val authApiInterface: AuthAPI by lazy {
         retrofitClient
             .build()
             .create(AuthAPI::class.java)
+    }
+
+    //helyek listája
+    val placesApiInterface: PlacesAPI by lazy {
+        retrofitClient
+            .build()
+            .create(PlacesAPI::class.java)
     }
 
 }

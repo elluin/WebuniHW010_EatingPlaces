@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.webunihw_eatingplaces.model.auth.LoginResult
-import com.example.webunihw_eatingplaces.repository.LoginRepository
+import com.example.webunihw_eatingplaces.model.db.User
+import com.example.webunihw_eatingplaces.repository.auth.LoginRepository
 import com.example.webunihw_eatingplaces.utils.NetworkErrorResult
 import com.example.webunihw_eatingplaces.utils.NetworkResult
 import kotlinx.coroutines.Dispatchers
@@ -34,5 +35,9 @@ class LoginViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun insert(user: User) = viewModelScope.launch(Dispatchers.IO) {
+        loginRepository.insert(user)
     }
 }

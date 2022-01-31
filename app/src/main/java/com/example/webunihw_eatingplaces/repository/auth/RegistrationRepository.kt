@@ -1,4 +1,4 @@
-package com.example.webunihw_eatingplaces.repository
+package com.example.webunihw_eatingplaces.repository.auth
 
 import com.example.webunihw_eatingplaces.datasource.LoginDataSource
 import com.example.webunihw_eatingplaces.datasource.RegistrationDataSource

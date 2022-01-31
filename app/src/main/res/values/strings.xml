@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WebuniHW_EatingPlaces</string>
+
+    <string-array name="tab_names">
+        <item>Lista</item>
+        <item>Térkép</item>
+    </string-array>
+
 </resources>

@@ -3,9 +3,7 @@ package com.example.webunihw_eatingplaces.ui.auth
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.webunihw_eatingplaces.model.auth.LoginResult
-import com.example.webunihw_eatingplaces.repository.LoginRepository
-import com.example.webunihw_eatingplaces.repository.RegistrationRepository
+import com.example.webunihw_eatingplaces.repository.auth.RegistrationRepository
 import com.example.webunihw_eatingplaces.utils.NetworkErrorResult
 import com.example.webunihw_eatingplaces.utils.NetworkResult
 import kotlinx.coroutines.Dispatchers
