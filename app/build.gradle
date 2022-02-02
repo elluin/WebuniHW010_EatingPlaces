@@ -77,6 +77,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
 
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     //places
     implementation 'com.google.android.gms:play-services-location:18.0.0'

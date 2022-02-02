@@ -16,7 +16,7 @@ import com.example.webunihw_eatingplaces.ui.places.adapter.PlacesAdapter
 import kotlinx.android.synthetic.main.fragment_placelist.*
 
 
-class FragmentPlaceList : Fragment() {
+class PlaceListFragment : Fragment() {
     val placelistViewModel by viewModels<PlaceListViewModel>()
     //private var placelistViewModel: PlaceListViewModel by viewModels()
     private lateinit var placesAdapter: PlacesAdapter
@@ -103,7 +103,7 @@ class FragmentPlaceList : Fragment() {
 
         @JvmStatic
         fun newInstance() =
-            FragmentPlaceList()
+            PlaceListFragment()
     }
 
 

@@ -3,7 +3,6 @@ package com.example.webunihw_eatingplaces.ui.places
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.webunihw_eatingplaces.databinding.FragmentPlacelistBinding
 
 class MyFragmentStatePagerAdapter(activity: AppCompatActivity, val itemsCount: Int) :
     FragmentStateAdapter(activity) {
@@ -14,9 +13,9 @@ class MyFragmentStatePagerAdapter(activity: AppCompatActivity, val itemsCount: I
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
-            FragmentPlaceList.newInstance()
+            PlaceListFragment.newInstance()
         } else {
-            FragmentMap.newInstance()
+            MapFragment.newInstance()
         }
     }
 
