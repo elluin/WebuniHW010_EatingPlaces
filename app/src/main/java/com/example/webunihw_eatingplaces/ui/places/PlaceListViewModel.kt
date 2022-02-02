@@ -38,4 +38,7 @@ class PlaceListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
+
+
+
 }

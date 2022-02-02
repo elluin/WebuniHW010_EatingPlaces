@@ -41,9 +41,9 @@ class FragmentPlaceList : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         placelistViewModel.getPlaces()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.e("tartalom", "első")
