@@ -3,6 +3,7 @@ package com.example.webunihw_eatingplaces.network.apis
 import com.example.webunihw_eatingplaces.model.PlaceListResult
 import com.example.webunihw_eatingplaces.model.auth.LoginResult
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -24,7 +25,7 @@ interface PlacesAPI {
         @Field("password") password: String
     ): ResponseBody
 
-    @GET("/user/registration/")
+    @GET("/places/")
     suspend fun getPlaces(): Response<PlaceListResult>
 
 

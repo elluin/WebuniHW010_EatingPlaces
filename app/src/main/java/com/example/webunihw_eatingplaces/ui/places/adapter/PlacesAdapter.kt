@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.webunihw_eatingplaces.databinding.ItemPlaceBinding
-import com.example.webunihw_eatingplaces.model.PlaceListResult
 import com.example.webunihw_eatingplaces.model.places.Place
 
-class PlacesAdapter(private val places: List<Place>) : RecyclerView.Adapter<PlacesAdapter.ViewHolder>(){
-    lateinit var context: Context
+class PlacesAdapter(private val context: Context,private val places: List<Place>) : RecyclerView.Adapter<PlacesAdapter.ViewHolder>(){
+   // lateinit var context: Context
     //var places = mutableListOf<Place>()
 
     lateinit var currentPlaceId: String
@@ -27,13 +26,12 @@ class PlacesAdapter(private val places: List<Place>) : RecyclerView.Adapter<Plac
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val place = places.get(holder.adapterPosition)
+
+        val place: Place = places[position]
+        //val place = places.get(holder.adapterPosition)
         val author = place.uploadedBy?.uploaderUserName
         val address = place.city + ", " + place.address
-        var category = ""
-        for (sg in place.categories){
-            category = "$category$place "
-        }
+        var category = place.categories
 
         holder.tvAuthor.text = author
         holder.tvTitle.text = place.fullName
