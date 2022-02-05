@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:andoid="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/nav_upload_place"
+        android:title="Hely feltöltése"
+        andoid:showAsAction="never"/>
+</menu>

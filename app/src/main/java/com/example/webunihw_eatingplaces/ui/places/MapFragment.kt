@@ -65,8 +65,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             mMap.uiSettings.isMyLocationButtonEnabled = true
 
             var budapest = LatLng(47.458649, 18.9486852)
-            mMap.addMarker(MarkerOptions().position(budapest).title("Marker in Budapest"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(budapest))
+            mMap.addMarker(MarkerOptions().position(budapest).title("Marker in Hun"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(budapest, 10f))
             //még egy
             budapest = LatLng(47.458649, 19.9486852)
             mMap.addMarker(MarkerOptions().position(budapest).title("Marker in Budapest"))

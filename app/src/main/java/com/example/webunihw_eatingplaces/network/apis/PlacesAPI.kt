@@ -28,6 +28,20 @@ interface PlacesAPI {
     @GET("/places/")
     suspend fun getPlaces(): Response<PlaceListResult>
 
+    @FormUrlEncoded
+    @POST("/places/create")
+    suspend fun uploadPlace(
+        @Field("fullName") fullName: String,
+        @Field("postalCode") postalCode: String,
+        @Field("city") city: String,
+        @Field("address") address: String,
+        @Field("lat") lat: String,
+        @Field("lon") lon: String,
+        @Field("categories") categories: String,
+        @Field("image") image: String,
+        @Field("description") description: String,
+    ): ResponseBody
+
 
 
 }

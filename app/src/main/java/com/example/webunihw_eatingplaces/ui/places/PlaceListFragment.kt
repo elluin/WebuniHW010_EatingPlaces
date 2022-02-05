@@ -3,6 +3,7 @@ package com.example.webunihw_eatingplaces.ui.places
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.webunihw_eatingplaces.R
 import com.example.webunihw_eatingplaces.databinding.FragmentPlacelistBinding
 import com.example.webunihw_eatingplaces.model.PlaceListResult
 import com.example.webunihw_eatingplaces.ui.places.adapter.PlacesAdapter
@@ -97,6 +99,7 @@ class PlaceListFragment : Fragment() {
             }
         }
     }
+
 
 
     companion object {

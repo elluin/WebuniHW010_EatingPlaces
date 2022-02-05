@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/progressbar_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/scrollview_event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:scrollbars="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="A hely neve" />
+
+            <EditText
+                android:id="@+id/edittext_place_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:maxLines="3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Irányítószám" />
+
+            <EditText
+                android:id="@+id/edittext_place_postalcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Település" />
+
+            <EditText
+                android:id="@+id/edittext_place_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Utca, házszám" />
+
+            <EditText
+                android:id="@+id/edittext_place_street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Kategória" />
+
+            <CheckBox
+                android:id="@+id/checkBox_glutenfree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gluténmentes" />
+
+            <CheckBox
+                android:id="@+id/checkBox_lactosefree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Laktózmentes" />
+
+            <CheckBox
+                android:id="@+id/checkBox_vegan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vegán" />
+
+            <CheckBox
+                android:id="@+id/checkBox_vegetarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vegetáriánus" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Hely rövid bemutatása" />
+
+            <EditText
+                android:id="@+id/edittext_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Kép feltöltése" />
+
+            <Button
+                android:id="@+id/button_select_place_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:text="Kép tallózása..."
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_dark" />
+
+            <ImageView
+                android:id="@+id/imageview_event_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/placeholder_coverimage" />
+
+            <Button
+                android:id="@+id/button_upload_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
+                android:text="Hely feltöltése"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

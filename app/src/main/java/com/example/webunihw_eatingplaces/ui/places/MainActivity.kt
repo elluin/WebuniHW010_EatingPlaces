@@ -1,15 +1,20 @@
 package com.example.webunihw_eatingplaces.ui.places
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.webunihw_eatingplaces.R
 import com.example.webunihw_eatingplaces.databinding.ActivityMainBinding
+import com.example.webunihw_eatingplaces.ui.places.upload.UploadPlaceActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayoutMediator
@@ -31,6 +36,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val actionBar: ActionBar? = supportActionBar
+        actionBar?.apply {
+            setDisplayHomeAsUpEnabled(false)
+            actionBar.setDisplayShowTitleEnabled(true)
+            actionBar.setTitle("Helyek")
+        }
 
         pageNames = resources.getStringArray(R.array.tab_names)
 
@@ -110,6 +122,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return super.onCreateOptionsMenu(menu)}
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_upload_place -> {
+                val intent = Intent(applicationContext, UploadPlaceActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onDestroy() {
         binding.mainViewPager.unregisterOnPageChangeCallback(pageChangeCallback)
