@@ -42,6 +42,19 @@ interface PlacesAPI {
         @Field("description") description: String,
     ): ResponseBody
 
+//    @Multipart
+//    @POST("/places/create")
+//    suspend fun uploadPlace(
+//        @Part("fullName") fullName: ResponseBody,
+//        @Part("postalCode") postalCode: ResponseBody,
+//        @Part("city") city: ResponseBody,
+//        @Part("address") address: ResponseBody,
+//        @Part("lat") lat: ResponseBody,
+//        @Part("lon") lon: ResponseBody,
+//        @Part("categories") categories: ResponseBody,
+//        @Part("image") image: ResponseBody,
+//        @Field("description") description: ResponseBody
+//    ): ResponseBody
 
 
 }

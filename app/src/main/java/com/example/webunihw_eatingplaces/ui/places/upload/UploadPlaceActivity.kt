@@ -1,6 +1,8 @@
 package com.example.webunihw_eatingplaces.ui.places.upload
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +18,8 @@ class UploadPlaceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadplaceBinding
     private val uploadViewModel: UploadPlaceViewModel by viewModels()
+    val REQUEST_CODE = 100
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +36,11 @@ class UploadPlaceActivity : AppCompatActivity() {
         uploadViewModel.getUploadPlaceLiveData()
             .observe(this, { uploadResult -> render(uploadResult) })
 
-        binding.buttonUploadPlace.setOnClickListener() {
+        binding.buttonSelectPlaceImage.setOnClickListener() {
+            openGalleryForImage(REQUEST_CODE)
+        }
 
+        binding.buttonUploadPlace.setOnClickListener() {
             var lat = "47.0"
             var lon = "19.5"
             var image = ""
@@ -92,5 +99,24 @@ class UploadPlaceActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         this.finish()
+    }
+
+    private fun openGalleryForImage(requestCode: Int) {
+
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, requestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+            imageUri = data!!.data!!
+            binding.imageviewPlaceimage.setImageURI(imageUri) // handle chosen image
+
+
+        }
+
     }
 }
