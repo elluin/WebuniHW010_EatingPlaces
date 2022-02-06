@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainViewPager.registerOnPageChangeCallback(pageChangeCallback)
         //swipe enable - because of map handling
-        binding.mainViewPager.isUserInputEnabled = false
+       // binding.mainViewPager.isUserInputEnabled = false
 
         TabLayoutMediator(binding.tabLayout, binding.mainViewPager) { tab, position ->
             tab.text = pageNames[position]

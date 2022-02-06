@@ -9,9 +9,9 @@ import com.example.webunihw_eatingplaces.utils.NetworkResult
 object UploadPlaceDataSource {
 
 
-suspend fun uploadPlace(fullName: String, postalCode: String, city: String, address: String, lat: String, lon: String, categories: String, image: String, desription: String): NetworkResponse<Any> {
+suspend fun uploadPlace(filepath: String, fullName: String, postalCode: String, city: String, address: String, lat: String, lon: String, categories: String, desription: String): NetworkResponse<Any> {
     try {
-        val response = RetrofitClient.placesApiInterface.uploadPlace(fullName, postalCode, city,address,lat, lon, categories, image, desription)
+        val response = RetrofitClient.placesApiInterface.uploadPlace(filepath, fullName, postalCode, city,address,lat, lon, categories,  desription)
         response?.let {
             return NetworkResult(it)
         }

@@ -34,4 +34,5 @@ class UploadPlaceViewModel : ViewModel() {
             }
         }
     }
+
 }

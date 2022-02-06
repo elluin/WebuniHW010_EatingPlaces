@@ -48,12 +48,11 @@ class PlaceListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("tartalom", "első")
+
 
         placelistViewModel.getPlacesLiveData()
             .observe(viewLifecycleOwner, { placeListResult -> render(placeListResult) })
 
-        Log.e("tartalom", "második")
 
     }
 

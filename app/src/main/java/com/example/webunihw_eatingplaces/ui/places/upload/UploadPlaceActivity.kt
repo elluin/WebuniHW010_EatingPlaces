@@ -2,6 +2,8 @@ package com.example.webunihw_eatingplaces.ui.places.upload
 
 import android.app.Activity
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.webunihw_eatingplaces.databinding.ActivityUploadplaceBinding
 import com.example.webunihw_eatingplaces.ui.places.MainActivity
 import okhttp3.ResponseBody
+import java.io.IOException
 
 class UploadPlaceActivity : AppCompatActivity() {
 
@@ -41,15 +44,22 @@ class UploadPlaceActivity : AppCompatActivity() {
         }
 
         binding.buttonUploadPlace.setOnClickListener() {
-            var lat = "47.0"
-            var lon = "19.5"
+
+            // var geocoder = Geocoder()
+            var address =
+                binding.edittextPlacePostalcode.text.toString() + binding.edittextPlaceCity.text.toString() + binding.edittextPlaceStreet.text.toString()
+
+
+            var lat = getLocationFromAddress(address)?.get(0).toString()
+            var lng = getLocationFromAddress(address)?.get(1).toString()
             var image = ""
             var categories: String = ""
             if (binding.checkBoxGlutenfree.isChecked) categories += "gluténmentes "
             if (binding.checkBoxLactosefree.isChecked) categories += "laktózmentes "
             if (binding.checkBoxVegan.isChecked) categories += "vegán "
             if (binding.checkBoxVegetarian.isChecked) categories += "vegetáriánus "
-            Log.d("kategória", categories)
+
+            Log.d("latlong", lat+" "+lng)
 
             uploadViewModel.upload(
                 binding.edittextPlaceFullname.text.toString(),
@@ -57,7 +67,7 @@ class UploadPlaceActivity : AppCompatActivity() {
                 binding.edittextPlaceCity.text.toString(),
                 binding.edittextPlaceStreet.text.toString(),
                 lat,
-                lon,
+                lng,
                 categories,
                 image,
                 binding.edittextDescription.text.toString()
@@ -67,6 +77,7 @@ class UploadPlaceActivity : AppCompatActivity() {
 
 
     }//ONCREATE
+
 
     private fun render(result: UploadPlaceViewState) {
         Log.e("tartalom1", result.toString())
@@ -119,4 +130,26 @@ class UploadPlaceActivity : AppCompatActivity() {
         }
 
     }
+
+    //get lat, long from address
+    fun getLocationFromAddress(strAddress: String?): List<Double>? {
+        val coder = Geocoder(this)
+        val address: List<Address>?
+        var coord = mutableListOf<Double>()
+        try {
+            address = coder.getFromLocationName(strAddress, 5)
+            if (address == null) {
+                return null
+            }
+            val location: Address = address[0]
+            coord.add(0, location.getLatitude())
+            coord.add(1, location.getLongitude())
+            return coord
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.webunihw_eatingplaces.ui.places.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.webunihw_eatingplaces.databinding.ItemPlaceBinding
 import com.example.webunihw_eatingplaces.model.places.Place
+import com.example.webunihw_eatingplaces.ui.places.PlaceDetailsActivity
 
-class PlacesAdapter(private val context: Context,private val places: List<Place>) : RecyclerView.Adapter<PlacesAdapter.ViewHolder>(){
-   // lateinit var context: Context
-    //var places = mutableListOf<Place>()
+class PlacesAdapter(private val context: Context, private val places: List<Place>) :
+    RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
     lateinit var currentPlaceId: String
 
@@ -21,6 +23,7 @@ class PlacesAdapter(private val context: Context,private val places: List<Place>
         return ViewHolder(binding)
     }
 
+
     override fun getItemCount(): Int {
         return places.size
     }
@@ -28,7 +31,6 @@ class PlacesAdapter(private val context: Context,private val places: List<Place>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val place: Place = places[position]
-        //val place = places.get(holder.adapterPosition)
         val author = place.uploadedBy?.uploaderUserName
         val address = place.city + ", " + place.address
         var category = place.categories
@@ -42,8 +44,18 @@ class PlacesAdapter(private val context: Context,private val places: List<Place>
             holder.ivPhoto.visibility = View.VISIBLE
             Glide.with(context).load(place.image).into(holder.ivPhoto)
         }
+
+        holder.cardview.setOnClickListener() {
+            showDetails(place)
+        }
     }
 
+
+    fun showDetails(place: Place) {
+        val intent = Intent(context, PlaceDetailsActivity::class.java)
+        intent.putExtra("KEY_PLACE", place.placeId)
+        context.startActivity(intent)
+    }
 
     inner class ViewHolder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root) {
         var tvAuthor = binding.textviewAuthor
@@ -51,5 +63,8 @@ class PlacesAdapter(private val context: Context,private val places: List<Place>
         var tvAddress = binding.textviewAddress
         var ivPhoto = binding.imageviewPhoto
         var tvCategory = binding.textviewCategory
+        var cardview = binding.cardView
     }
+
+
 }

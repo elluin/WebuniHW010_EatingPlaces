@@ -38,7 +38,7 @@ object RetrofitClient {
             .create(AuthAPI::class.java)
     }
 
-    //helyek listája, hely feltöltése
+    //helyek listája, hely feltöltése, egy hely adatainak lekérése
     val placesApiInterface: PlacesAPI by lazy {
         retrofitClient
             .build()
