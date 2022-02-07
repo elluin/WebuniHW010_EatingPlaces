@@ -54,17 +54,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainViewPager.registerOnPageChangeCallback(pageChangeCallback)
         //swipe enable - because of map handling
-       // binding.mainViewPager.isUserInputEnabled = false
+       binding.mainViewPager.isUserInputEnabled = false
 
         TabLayoutMediator(binding.tabLayout, binding.mainViewPager) { tab, position ->
             tab.text = pageNames[position]
         }.attach()
 
 
-        //adott indexű tab megnyitása extrában kapott adat alapján
-//        val defaultValue = 0
-//        val page = intent.getIntExtra("PAGE", defaultValue)
-//        binding.mainViewPager.setCurrentItem(page)
 
     }//ONCREATE
 

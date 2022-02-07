@@ -7,15 +7,18 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.webunihw_eatingplaces.R
 import com.example.webunihw_eatingplaces.databinding.FragmentMapBinding
-import com.example.webunihw_eatingplaces.model.places.Place
+import com.example.webunihw_eatingplaces.model.PlaceListResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -26,9 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
+    val placelistViewModel by viewModels<PlaceListViewModel>()
     private lateinit var mMap: GoogleMap
-    private lateinit var viewModel: PlaceListViewModel
-    private val placesMarkerList = mutableListOf<Place>()
     private var _binding: FragmentMapBinding? = null
     private val binding
         get() = _binding!!
@@ -44,8 +46,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }//ONCREATEVIEW -----------------------------------------------------------------------------
 
+    override fun onResume() {
+        super.onResume()
+        placelistViewModel.getPlaces()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        placelistViewModel.getPlacesLiveData()
+            .observe(viewLifecycleOwner, { placeListResult -> render(placeListResult) })
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFrg) as SupportMapFragment?
         if (mapFragment != null) {
             mapFragment.onCreate(savedInstanceState)
@@ -56,6 +66,60 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }//ONVIEWCREATED -----------------------------------------------------------------------------
 
 
+    private fun render(result: PlaceListViewState) {
+        Log.e("tartalom", result.toString())
+        when (result) {
+            is DownloadPlacesInProgress -> {
+                binding.progressbarMap.visibility = View.VISIBLE
+            }
+            is PlaceListResponseSuccess -> {
+                binding.progressbarMap.visibility = View.GONE
+                processResponse(result.data)
+                Log.e("tartalom", result.toString())
+            }
+            is PlaceListResponseError -> {
+                binding.progressbarMap.visibility = View.GONE
+                Toast.makeText(
+                    //TODO mi az a requireContext?
+                    requireContext(),
+                    "HIBA" + result.exceptionMsg,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        }
+    }
+
+
+    private fun processResponse(placelistData: PlaceListResult?) {
+        if (placelistData != null) {
+            mMap.apply {
+                clear()
+                placelistData.places?.forEach {
+                    addMarker(MarkerOptions().apply {
+                        it.coord?.lon?.let { it1 ->
+                            it.coord?.lat?.let { it2 ->
+                                LatLng(
+                                    it2,
+                                    // placelistData.places?.get(0)?.coord?.lon!!
+                                    it1
+                                )
+                            }
+                        }?.let { it2 ->
+                            position(
+                                it2
+                            )
+                        }
+                        title(it.fullName)
+                        snippet(it.city)
+                    })
+                }
+                //focus on user's location!
+                goToMyLocation()
+            }
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap?.let {
             mMap = googleMap
@@ -63,14 +127,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             mMap.uiSettings.isZoomControlsEnabled = true
             mMap.uiSettings.isMapToolbarEnabled = true
             mMap.uiSettings.isMyLocationButtonEnabled = true
-
-            var budapest = LatLng(47.458649, 18.9486852)
-            mMap.addMarker(MarkerOptions().position(budapest).title("Marker in Hun"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(budapest, 10f))
-            //még egy
-            budapest = LatLng(47.458649, 19.9486852)
-            mMap.addMarker(MarkerOptions().position(budapest).title("Marker in Budapest"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(budapest))
         }
     }
 
@@ -106,7 +162,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         LatLng(
                             location.latitude,
                             location.longitude
-                        ), 14.0f
+                        ), 12.0f
                     )
                 )
             }
