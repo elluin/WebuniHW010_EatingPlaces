@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id  'com.google.gms.google-services'
 }
 
 android {
@@ -84,5 +85,10 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:2.2.2'
     implementation 'com.sucho:placepicker:1.1.2'
     implementation 'com.google.android.libraries.places:places:2.2.0'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
+
 }
 

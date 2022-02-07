@@ -39,6 +39,7 @@ interface PlacesAPI {
     @FormUrlEncoded
     @POST("/places/create")
     suspend fun uploadPlace(
+        @Field("image") image: String,
         @Field("fullName") fullName: String,
         @Field("postalCode") postalCode: String,
         @Field("city") city: String,
@@ -46,7 +47,6 @@ interface PlacesAPI {
         @Field("lat") lat: Double,
         @Field("lon") lon: Double,
         @Field("categories") categories: String,
-        @Field("image") image: String,
         @Field("description") description: String,
     ): ResponseBody
 

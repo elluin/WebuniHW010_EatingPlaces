@@ -1,8 +1,9 @@
 package com.example.webunihw_eatingplaces.ui.auth
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
+import com.example.webunihw_eatingplaces.database.AppDatabase
 import com.example.webunihw_eatingplaces.model.auth.LoginResult
 import com.example.webunihw_eatingplaces.model.db.User
 import com.example.webunihw_eatingplaces.repository.auth.LoginRepository
@@ -11,12 +12,20 @@ import com.example.webunihw_eatingplaces.utils.NetworkResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
-    private var loginRepository: LoginRepository = LoginRepository()
+class LoginViewModel(application: Application)  : AndroidViewModel(application)  {
 
+    private var loginRepository: LoginRepository
+    val allUsers: LiveData<List<User>>
     private val result = MutableLiveData<LoginViewState>()
 
+    init {
+        val userDao = AppDatabase.getInstance(application).userDao()
+        loginRepository = LoginRepository(userDao)
+        allUsers = loginRepository.getAllUsers()
+    }
+
     fun getLoginLiveData() = result
+
 
     fun login(email: String, password: String) {
 
@@ -28,6 +37,8 @@ class LoginViewModel : ViewModel() {
                 is NetworkResult -> {
                     val loginResult = response.result as LoginResult
 
+                    deleteUsers()
+
                     result.postValue(LoginResponseSuccess(loginResult))
                 }
                 is NetworkErrorResult -> {
@@ -37,7 +48,14 @@ class LoginViewModel : ViewModel() {
         }
     }
 
+
     fun insert(user: User) = viewModelScope.launch(Dispatchers.IO) {
         loginRepository.insert(user)
+    }
+
+
+
+    fun deleteUsers() = viewModelScope.launch(Dispatchers.IO) {
+        loginRepository.delete()
     }
 }

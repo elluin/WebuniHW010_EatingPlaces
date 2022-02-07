@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Place(
+    val image: String?,
     val placeId: String?,
     val fullName: String,
     val coord: Coord?,
@@ -13,7 +14,7 @@ data class Place(
     val categories: String,
     val uploadedBy: Uploader?,
     val uploadingDate: String?,
-    val image: String?,
+
     val description: String?
 )
 

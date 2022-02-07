@@ -13,6 +13,9 @@ interface UserDAO {
     @Insert
     suspend fun insertUser(user: User) : Long
 
+    @Insert
+    fun insert(vararg grades: User)
+
     @Delete
     suspend fun deleteUser(user: User)
 

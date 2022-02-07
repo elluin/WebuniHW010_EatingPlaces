@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_placelist.*
 
 class PlaceListFragment : Fragment() {
     val placelistViewModel by viewModels<PlaceListViewModel>()
-    //private var placelistViewModel: PlaceListViewModel by viewModels()
+ //   private var placelistViewModel: PlaceListViewModel by viewModels()
     private lateinit var placesAdapter: PlacesAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -49,11 +49,8 @@ class PlaceListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         placelistViewModel.getPlacesLiveData()
             .observe(viewLifecycleOwner, { placeListResult -> render(placeListResult) })
-
-
     }
 
 

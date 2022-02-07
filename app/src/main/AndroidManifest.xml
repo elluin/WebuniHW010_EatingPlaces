@@ -21,7 +21,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.places.MainActivity">
+        <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,13 +37,20 @@
 
         </activity>
 
-        <activity android:name=".ui.auth.LoginActivity">
+        <activity android:name=".ui.places.MainActivity">
 
         </activity>
 
         <activity android:name=".ui.places.PlaceDetailsActivity">
 
         </activity>
+
+        <service
+            android:name=".utils.MyFirebasePushService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

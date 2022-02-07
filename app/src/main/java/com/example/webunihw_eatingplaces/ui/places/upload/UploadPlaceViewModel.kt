@@ -17,12 +17,12 @@ class UploadPlaceViewModel : ViewModel() {
 
     fun getUploadPlaceLiveData() = result
 
-    fun upload(fullName: String, postalCode: String, city: String, address: String, lat: String, lon: String, categories: String, image: String, desription: String) {
+    fun upload(image: String, fullName: String, postalCode: String, city: String, address: String, lat: Double, lon: Double, categories: String, desription: String) {
 
         result.value = UploadInProgress
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = uploadPlaceRepository.uploadPlace(fullName, postalCode, city,address,lat, lon, categories, image, desription)
+            val response = uploadPlaceRepository.uploadPlace(image, fullName, postalCode, city,address,lat, lon, categories, desription)
             when (response) {
                 is NetworkResult -> {
                     val uploadResult = response.result as ResponseBody

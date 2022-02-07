@@ -7,8 +7,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.webunihw_eatingplaces.database.AppDatabase
 import com.example.webunihw_eatingplaces.databinding.ActivityLoginBinding
 import com.example.webunihw_eatingplaces.model.auth.LoginResult
+import com.example.webunihw_eatingplaces.model.db.User
+import com.example.webunihw_eatingplaces.ui.places.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
     }//ONCREATE
 
     private fun render(result: LoginViewState) {
@@ -44,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             is LoginResponseSuccess -> {
                 binding.progressbarLogin.visibility = View.GONE
                 processResponse(result.data)
+                loginViewModel.insert(User(null,result.data.userId,result.data.userEmail, result.data.userName,result.data.userToken))
                 Log.e("tartalom", result.toString())
             }
             is LoginResponseError -> {
@@ -64,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         if (loginData != null) {
             Log.e("hiba", loginData.userId.toString())
         }
-        val intent = Intent(this, RegistrationActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         this.finish()
     }

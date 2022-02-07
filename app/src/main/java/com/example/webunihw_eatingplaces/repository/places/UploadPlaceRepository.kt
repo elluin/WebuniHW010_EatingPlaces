@@ -6,7 +6,7 @@ import com.example.webunihw_eatingplaces.datasource.UploadPlaceDataSource
 import com.example.webunihw_eatingplaces.utils.NetworkResponse
 
 class UploadPlaceRepository {
-    suspend fun uploadPlace(fullName: String, postalCode: String, city: String, address: String, lat: String, lon: String, categories: String, image: String, desription: String) : NetworkResponse<Any> {
-        return UploadPlaceDataSource.uploadPlace(fullName, postalCode, city,address,lat, lon, categories, image, desription)
+    suspend fun uploadPlace(image: String, fullName: String, postalCode: String, city: String, address: String, lat: Double, lon: Double, categories: String, desription: String) : NetworkResponse<Any> {
+        return UploadPlaceDataSource.uploadPlace(image, fullName, postalCode, city,address,lat, lon, categories, desription)
     }
 }

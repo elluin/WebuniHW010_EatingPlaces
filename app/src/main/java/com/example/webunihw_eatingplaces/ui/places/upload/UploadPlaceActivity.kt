@@ -50,8 +50,9 @@ class UploadPlaceActivity : AppCompatActivity() {
                 binding.edittextPlacePostalcode.text.toString() + binding.edittextPlaceCity.text.toString() + binding.edittextPlaceStreet.text.toString()
 
 
-            var lat = getLocationFromAddress(address)?.get(0).toString()
-            var lng = getLocationFromAddress(address)?.get(1).toString()
+            var lat = getLocationFromAddress(address)?.get(0)?.toDouble()
+            var lng = getLocationFromAddress(address)?.get(1)?.toDouble()
+
             var image = ""
             var categories: String = ""
             if (binding.checkBoxGlutenfree.isChecked) categories += "gluténmentes "
@@ -59,19 +60,22 @@ class UploadPlaceActivity : AppCompatActivity() {
             if (binding.checkBoxVegan.isChecked) categories += "vegán "
             if (binding.checkBoxVegetarian.isChecked) categories += "vegetáriánus "
 
-            Log.d("latlong", lat+" "+lng)
+            Log.e("latlong", lat.toString()+" "+lng.toString())
 
-            uploadViewModel.upload(
-                binding.edittextPlaceFullname.text.toString(),
-                binding.edittextPlacePostalcode.text.toString(),
-                binding.edittextPlaceCity.text.toString(),
-                binding.edittextPlaceStreet.text.toString(),
-                lat,
-                lng,
-                categories,
-                image,
-                binding.edittextDescription.text.toString()
-            )
+            if (lat != null && lng != null) {
+                uploadViewModel.upload(
+                    image,
+                    binding.edittextPlaceFullname.text.toString(),
+                    binding.edittextPlacePostalcode.text.toString(),
+                    binding.edittextPlaceCity.text.toString(),
+                    binding.edittextPlaceStreet.text.toString(),
+                    lat,
+                    lng,
+                    categories,
+
+                    binding.edittextDescription.text.toString()
+                )
+            }
 
         }
 
