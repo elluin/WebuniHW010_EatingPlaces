@@ -97,19 +97,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 clear()
                 placelistData.places?.forEach {
                     addMarker(MarkerOptions().apply {
-                        it.coord?.lon?.let { it1 ->
-                            it.coord?.lat?.let { it2 ->
-                                LatLng(
-                                    it2,
-                                    // placelistData.places?.get(0)?.coord?.lon!!
-                                    it1
-                                )
-                            }
-                        }?.let { it2 ->
-                            position(
-                                it2
-                            )
-                        }
+                        position(LatLng(it.coord.lat, it.coord.lon))
                         title(it.fullName)
                         snippet(it.city)
                     })

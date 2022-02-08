@@ -1,9 +1,11 @@
 package com.example.webunihw_eatingplaces.ui.places
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -18,6 +20,8 @@ import com.example.webunihw_eatingplaces.ui.places.upload.UploadPlaceActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
         pageNames = resources.getStringArray(R.array.tab_names)
 
-//TODO beállítani, hogy csak eng birtokában töltődjön be
         requestNeededPermission()
 
         val fragmentStatePagerAdapter = MyFragmentStatePagerAdapter(this, 2)
@@ -60,7 +63,15 @@ class MainActivity : AppCompatActivity() {
             tab.text = pageNames[position]
         }.attach()
 
-
+        Firebase.messaging.subscribeToTopic("freefood")
+            .addOnCompleteListener { task ->
+                var msg = getString(R.string.msg_subscribed)
+                if (!task.isSuccessful) {
+                    msg = getString(R.string.msg_subscribe_failed)
+                }
+                Log.d(TAG, msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+            }
 
     }//ONCREATE
 
@@ -117,6 +128,8 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)

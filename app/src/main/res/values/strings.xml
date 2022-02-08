@@ -5,5 +5,7 @@
         <item>Lista</item>
         <item>Térkép</item>
     </string-array>
+    <string name="msg_subscribed">Sikeres feliratkozás Firebase topicra</string>
+    <string name="msg_subscribe_failed">Feliratkozás Firebase topicra nem sikerült</string>
 
 </resources>

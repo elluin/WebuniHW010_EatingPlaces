@@ -1,7 +1,6 @@
 package com.example.webunihw_eatingplaces.ui.places
 
-import android.location.Address
-import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.webunihw_eatingplaces.R
 import com.example.webunihw_eatingplaces.databinding.ActivityPlacedetailsBinding
 import com.example.webunihw_eatingplaces.model.places.Place
@@ -18,13 +18,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import java.io.IOException
+import kotlinx.android.synthetic.main.activity_placedetails.*
 
 
 class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    var where = LatLng(47.458649, 18.9486852)
     private lateinit var binding: ActivityPlacedetailsBinding
     private val placedetailsViewModel: PlaceDetailsViewModel by viewModels()
 
@@ -33,12 +32,26 @@ class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityPlacedetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.apply {
-            setDisplayHomeAsUpEnabled(false)
-            actionBar.setDisplayShowTitleEnabled(true)
-            actionBar.setTitle("Hely profil")
+//        val actionBar: ActionBar? = supportActionBar
+//        actionBar?.apply {
+//            setDisplayHomeAsUpEnabled(false)
+//            actionBar.setDisplayShowTitleEnabled(true)
+//            actionBar.setTitle("Hely profil")
+//        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         }
+
+        //toolbar
+       // setSupportActionBar(toolbar_place_detail)
+        supportActionBar?.apply {
+            title = ""
+            setDisplayHomeAsUpEnabled(true)
+        }
+
 
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.mapPlacedetailFrg) as SupportMapFragment
@@ -95,14 +108,23 @@ class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         val address =
             registrationData.postalCode + " " + registrationData.city + ", " + registrationData.address
+        Log.e("koord", registrationData.coord.lat.toString())
+        Log.e("koord", registrationData.coord.lon.toString())
         mMap.apply {
             clear()
             addMarker(MarkerOptions().apply {
-                position(LatLng(47.458649, 18.9486852))
+                position(LatLng(registrationData.coord.lat, registrationData.coord.lon))
                 title(registrationData.fullName)
                 snippet(address)
             })
-            moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(47.458649, 18.9486852), 10f))
+            moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        registrationData.coord.lat,
+                        registrationData.coord.lon
+                    ), 10f
+                )
+            )
         }
         binding.textviewName.text = registrationData.fullName
         binding.textviewAddress.text = address
@@ -110,11 +132,11 @@ class PlaceDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.textviewDate.text = registrationData.uploadingDate
         binding.textviewUploader.text = registrationData.uploadedBy?.uploaderUserName
         binding.textviewDescription.text = registrationData.description
-
+        Glide.with(this@PlaceDetailsActivity)
+            .load("https://mentesklub.hu/wp-content/uploads/2021/03/Bohemtanya_7.jpg")
+            .into(binding.imageviewCover)
 
     }
-
-
 
 
 }

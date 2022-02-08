@@ -2,9 +2,7 @@ package com.example.webunihw_eatingplaces.ui.places.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,16 +38,14 @@ class PlacesAdapter(private val context: Context, private val places: List<Place
         holder.tvAddress.text = address
         holder.tvCategory.text = category
 
-        if (place.image?.isNotEmpty() == true) {
-            holder.ivPhoto.visibility = View.VISIBLE
-            Glide.with(context).load(place.image).into(holder.ivPhoto)
-        }
+        Glide.with(context)
+            .load("https://mentesklub.hu/wp-content/uploads/2021/03/Bohemtanya_7.jpg")
+            .into(holder.ivPhoto)
 
         holder.cardview.setOnClickListener() {
             showDetails(place)
         }
     }
-
 
     fun showDetails(place: Place) {
         val intent = Intent(context, PlaceDetailsActivity::class.java)
